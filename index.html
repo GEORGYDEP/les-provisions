@@ -1,58 +1,2310 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>L'Art de la Comptabilité</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Italiana&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f4e4bc;
-      background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
-      font-family: 'Playfair Display', serif;
-    }
-    .renaissance-font {
-      font-family: 'Cinzel', serif;
-    }
-    .cursive-font {
-      font-family: 'Great+Vibes', cursive;
-    }
-    .italiana-font {
-      font-family: 'Italiana', serif;
-    }
-    /* Custom Scrollbar for parchment look */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #e4d4ac;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #8b5e3c;
-      border-radius: 5px;
-    }
-    .ink-text {
-      color: #1a2a3a;
-    }
-    .gold-border {
-      border: 4px double #b8860b;
-    }
-  </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Provisions pour Risques et Charges - Application Pédagogique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --secondary: #319795;
+            --accent: #ed8936;
+            --success: #38a169;
+            --danger: #e53e3e;
+            --warning: #d69e2e;
+            --bg-main: #f7fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 10px 40px rgba(26, 54, 93, 0.1);
+            --shadow-hover: 0 20px 60px rgba(26, 54, 93, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(49, 151, 149, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(237, 137, 54, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            z-index: -1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 35px,
+                rgba(255,255,255,0.03) 35px,
+                rgba(255,255,255,0.03) 70px
+            );
+            animation: movePattern 20s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            position: relative;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .header .company-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-weight: 600;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .progress-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle,
+        .step.completed .step-circle {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            border-color: transparent;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(49, 151, 149, 0.4);
+        }
+
+        .step.completed .step-circle::after {
+            content: '✓';
+            font-size: 1.2rem;
+        }
+
+        .step-label {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 100px;
+            transition: color 0.3s ease;
+        }
+
+        .step.active .step-label,
+        .step.completed .step-label {
+            color: var(--primary);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-icon.info { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .card-icon.provision { background: linear-gradient(135deg, var(--secondary), #4fd1c5); }
+        .card-icon.invoice { background: linear-gradient(135deg, var(--accent), #f6ad55); }
+        .card-icon.result { background: linear-gradient(135deg, var(--success), #68d391); }
+        .card-icon.warning { background: linear-gradient(135deg, var(--danger), #fc8181); }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .intro-item {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .intro-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .intro-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .intro-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-box::before {
+            content: '🏭';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 5rem;
+            opacity: 0.2;
+        }
+
+        .scenario-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .scenario-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .scenario-detail {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .scenario-detail .label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-detail .value {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        /* Exercise Entry Styles */
+        .exercise-entry {
+            background: #fafafa;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 2px solid var(--border);
+        }
+
+        .entry-header {
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .entry-header .journal-type {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .entry-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        .entry-table th {
+            background: #f1f5f9;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .entry-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .entry-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .entry-table .account-code {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .entry-table .debit {
+            color: var(--danger);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .entry-table .credit {
+            color: var(--success);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .entry-table .indent {
+            padding-left: 2.5rem;
+        }
+
+        .entry-table .indent::before {
+            content: 'à';
+            margin-right: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Input fields for exercises */
+        .exercise-input {
+            width: 100px;
+            padding: 0.5rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(49, 151, 149, 0.2);
+        }
+
+        .exercise-input.correct {
+            border-color: var(--success);
+            background: rgba(56, 161, 105, 0.1);
+        }
+
+        .exercise-input.incorrect {
+            border-color: var(--danger);
+            background: rgba(229, 62, 62, 0.1);
+        }
+
+        .exercise-input.amount {
+            width: 140px;
+        }
+
+        /* Exercise Controls */
+        .exercise-controls {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-top: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(49, 151, 149, 0.3);
+        }
+
+        .btn-show {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-show:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+        }
+
+        .btn-reset {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .exercise-feedback {
+            padding: 1rem 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .exercise-feedback.show {
+            display: flex;
+        }
+
+        .exercise-feedback.success {
+            background: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+
+        .exercise-feedback.error {
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+
+        /* Invoice Styles */
+        .invoice {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .invoice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 8px 8px 0 0;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .invoice-company {
+            flex: 1;
+        }
+
+        .invoice-company h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .invoice-company p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .invoice-meta {
+            text-align: right;
+        }
+
+        .invoice-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .invoice-date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .invoice-parties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .invoice-party {
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 10px;
+        }
+
+        .invoice-party-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .invoice-party h4 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .invoice-party p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .invoice-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .invoice-table th:last-child {
+            text-align: right;
+        }
+
+        .invoice-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-table td:last-child {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .invoice-totals {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .invoice-totals-table {
+            width: 300px;
+        }
+
+        .invoice-totals-table tr td {
+            padding: 0.75rem 1rem;
+            border: none;
+        }
+
+        .invoice-totals-table tr td:first-child {
+            color: var(--text-secondary);
+        }
+
+        .invoice-totals-table tr td:last-child {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .invoice-totals-table .total-row {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .invoice-totals-table .total-row td {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .invoice-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #eee;
+            text-align: center;
+        }
+
+        .invoice-footer .autoliquidation {
+            display: inline-block;
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .invoice-footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Hypothesis Selection */
+        .hypothesis-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .hypothesis-btn {
+            background: var(--bg-card);
+            border: 3px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .hypothesis-btn:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .hypothesis-btn.active {
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(49, 151, 149, 0.1), rgba(49, 151, 149, 0.05));
+        }
+
+        .hypothesis-btn.equal { --hyp-color: var(--secondary); }
+        .hypothesis-btn.over { --hyp-color: var(--success); }
+        .hypothesis-btn.under { --hyp-color: var(--danger); }
+
+        .hypothesis-btn.active {
+            border-color: var(--hyp-color);
+        }
+
+        .hypothesis-btn .amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hypothesis-btn .description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .hypothesis-btn .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+
+        .hypothesis-btn.equal .badge {
+            background: rgba(49, 151, 149, 0.15);
+            color: var(--secondary);
+        }
+
+        .hypothesis-btn.over .badge {
+            background: rgba(56, 161, 105, 0.15);
+            color: var(--success);
+        }
+
+        .hypothesis-btn.under .badge {
+            background: rgba(229, 62, 62, 0.15);
+            color: var(--danger);
+        }
+
+        /* Impact Table */
+        .impact-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .impact-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .impact-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .impact-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .impact-table .year-col {
+            font-weight: 700;
+            background: #f8fafc;
+            color: var(--primary);
+        }
+
+        .impact-table .negative {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .impact-table .positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .impact-table .neutral {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .impact-table .total-row {
+            background: linear-gradient(90deg, #f8fafc, #f1f5f9);
+            font-weight: 700;
+        }
+
+        .impact-table .total-row td {
+            border-top: 3px solid var(--primary);
+        }
+
+        /* Visual Impact */
+        .visual-impact {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .year-box {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .year-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .year-box.provision::before { background: var(--secondary); }
+        .year-box.positive::before { background: var(--success); }
+        .year-box.negative::before { background: var(--danger); }
+        .year-box.neutral::before { background: var(--text-muted); }
+
+        .year-box .year-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .year-box .impact-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .year-box .impact-label {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .year-box.provision .impact-value { color: var(--danger); }
+        .year-box.provision .impact-label { background: rgba(229, 62, 62, 0.1); color: var(--danger); }
+
+        .year-box.positive .impact-value { color: var(--success); }
+        .year-box.positive .impact-label { background: rgba(56, 161, 105, 0.1); color: var(--success); }
+
+        .year-box.negative .impact-value { color: var(--danger); }
+        .year-box.negative .impact-label { background: rgba(229, 62, 62, 0.1); color: var(--danger); }
+
+        .year-box.neutral .impact-value { color: var(--text-muted); }
+        .year-box.neutral .impact-label { background: rgba(113, 128, 150, 0.1); color: var(--text-muted); }
+
+        /* Total Summary */
+        .total-summary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .total-summary .summary-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .total-summary .summary-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border-left: 4px solid var(--warning);
+            border-radius: 0 15px 15px 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .explanation-box.success {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: var(--success);
+        }
+
+        .explanation-box.danger {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-color: var(--danger);
+        }
+
+        .explanation-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .explanation-box p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 15px rgba(49, 151, 149, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(49, 151, 149, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: rgba(56, 161, 105, 0.5);
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(229, 62, 62, 0.5);
+            border-color: var(--danger);
+        }
+
+        .quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(56, 161, 105, 0.3);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        /* Answer display */
+        .answer-display {
+            background: linear-gradient(135deg, rgba(56, 161, 105, 0.1), rgba(56, 161, 105, 0.05));
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 1.5rem 0 1.5rem;
+            display: none;
+        }
+
+        .answer-display.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .answer-display h4 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .progress-steps {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .progress-steps::before,
+            .progress-line {
+                display: none;
+            }
+
+            .hypothesis-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-impact {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .total-summary {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .invoice-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .invoice-meta {
+                text-align: left;
+            }
+
+            .invoice-parties {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="root"></div>
+    <header class="header">
+        <h1>📊 Les Provisions pour Risques et Charges</h1>
+        <p class="subtitle">Comprendre et maîtriser la comptabilisation des provisions</p>
+        <div class="company-badge">🏢 Cas pratique : Meubledistri SA</div>
+    </header>
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-line" id="progressLine"></div>
+                <div class="step active" data-step="1" onclick="goToStep(1)">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Introduction</span>
+                </div>
+                <div class="step" data-step="2" onclick="goToStep(2)">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Contexte</span>
+                </div>
+                <div class="step" data-step="3" onclick="goToStep(3)">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Constitution</span>
+                </div>
+                <div class="step" data-step="4" onclick="goToStep(4)">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Facture</span>
+                </div>
+                <div class="step" data-step="5" onclick="goToStep(5)">
+                    <div class="step-circle">5</div>
+                    <span class="step-label">Utilisation</span>
+                </div>
+                <div class="step" data-step="6" onclick="goToStep(6)">
+                    <div class="step-circle">6</div>
+                    <span class="step-label">Impact</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section active" id="section1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon info">💡</div>
+                    <h2 class="card-title">Qu'est-ce qu'une provision ?</h2>
+                </div>
+                
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Une <strong>provision pour risques et charges</strong> est un mécanisme comptable qui permet à une entreprise d'anticiper une charge future. C'est une particularité unique en comptabilité : on peut prendre en charge un événement qui <strong>n'a pas encore eu lieu</strong> !
+                </p>
+
+                <div class="intro-grid">
+                    <div class="intro-item">
+                        <h4>📅 Charges prévisibles</h4>
+                        <p>La charge est probable ou certaine, mais se produira dans le futur (ex: grosse réparation prévue).</p>
+                    </div>
+                    <div class="intro-item">
+                        <h4>❓ Montant incertain</h4>
+                        <p>Le montant exact ne peut être chiffré avec précision, seulement estimé.</p>
+                    </div>
+                    <div class="intro-item">
+                        <h4>⏰ Échéance imprécise</h4>
+                        <p>La date exacte de la charge n'est pas connue avec certitude.</p>
+                    </div>
+                    <div class="intro-item">
+                        <h4>🎯 Nature définie</h4>
+                        <p>La nature de la charge doit être clairement identifiée (réparation, litige, etc.).</p>
+                    </div>
+                </div>
+
+                <div class="explanation-box">
+                    <h4>⚠️ Attention - Provision ≠ Investissement</h4>
+                    <p>Une provision ne peut couvrir que des <strong>charges</strong>, jamais un investissement. Par exemple, si l'entreprise décide de construire une nouvelle toiture plutôt que de réparer l'ancienne, elle ne pourra pas constituer de provision car il s'agit d'un investissement immobilier.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon provision">📋</div>
+                    <h2 class="card-title">Classification des provisions (PCMN)</h2>
+                </div>
+
+                <div class="intro-grid">
+                    <div class="intro-item">
+                        <h4>1600 - Pensions</h4>
+                        <p>Provisions pour pensions et obligations similaires</p>
+                    </div>
+                    <div class="intro-item">
+                        <h4>1610 - Charges fiscales</h4>
+                        <p>Provisions pour impôts et taxes à venir</p>
+                    </div>
+                    <div class="intro-item" style="border-color: var(--accent);">
+                        <h4>1620 - Grosses réparations ⭐</h4>
+                        <p>Provisions pour grosses réparations et gros entretien</p>
+                    </div>
+                    <div class="intro-item">
+                        <h4>1630 - Autres risques</h4>
+                        <p>Litiges, garanties, amendes, etc.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" disabled>← Précédent</button>
+                <button class="btn btn-primary" onclick="nextStep()">Suivant : Le contexte →</button>
+            </div>
+        </div>
+
+        <!-- Section 2: Contexte -->
+        <div class="section" id="section2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon info">🏢</div>
+                    <h2 class="card-title">Mise en situation : Meubledistri SA</h2>
+                </div>
+
+                <div class="scenario-box">
+                    <h3>📌 Le contexte de l'entreprise</h3>
+                    <p style="margin-bottom: 1.5rem; opacity: 0.95; line-height: 1.7;">
+                        L'entreprise <strong>Meubledistri SA</strong> possède plusieurs entrepôts pour stocker ses meubles. Après une inspection, elle constate qu'il est indispensable de prévoir la <strong>réparation de la toiture</strong> de ses différents entrepôts.
+                    </p>
+                    <div class="scenario-details">
+                        <div class="scenario-detail">
+                            <div class="label">Coût estimé HTVA</div>
+                            <div class="value">250 000 €</div>
+                        </div>
+                        <div class="scenario-detail">
+                            <div class="label">Délai avant travaux</div>
+                            <div class="value">2 ans</div>
+                        </div>
+                        <div class="scenario-detail">
+                            <div class="label">Dotation annuelle</div>
+                            <div class="value">125 000 €</div>
+                        </div>
+                        <div class="scenario-detail">
+                            <div class="label">Type de provision</div>
+                            <div class="value">Compte 1620</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation-box success">
+                    <h4>🎯 L'objectif de la provision</h4>
+                    <p>En constituant une provision sur 2 ans, l'entreprise va :</p>
+                    <ul style="margin-top: 0.75rem; margin-left: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>Répartir la charge</strong> sur plusieurs exercices pour éviter un impact brutal sur le résultat</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Réserver des ressources</strong> au passif pour financer les travaux futurs</li>
+                        <li><strong>Éviter la distribution</strong> de cette somme aux actionnaires (préserver la trésorerie)</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">🧠 Quiz : Pourquoi l'entreprise constitue-t-elle une provision ?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, false)">Pour augmenter son bénéfice</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, true)">Pour anticiper et répartir une charge future prévisible</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, false)">Pour acheter de nouveaux meubles</div>
+                    </div>
+                    <div class="quiz-feedback" id="quizFeedback1">
+                        <strong>✓ Correct !</strong> La provision permet d'anticiper une charge future et de la répartir sur plusieurs exercices comptables.
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">← Précédent</button>
+                <button class="btn btn-primary" onclick="nextStep()">Suivant : Constitution →</button>
+            </div>
+        </div>
+
+        <!-- Section 3: Constitution de la provision -->
+        <div class="section" id="section3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon provision">📝</div>
+                    <h2 class="card-title">Étape 1 : Constitution de la provision</h2>
+                </div>
+
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    La provision est constituée à la fin de chaque année comptable où l'on constate le risque. Le résultat de l'entreprise <strong>ne peut pas influencer</strong> cette décision : la constitution est <strong>obligatoire</strong>.
+                </p>
+
+                <h3 style="color: var(--primary); margin: 1.5rem 0 1rem;">📅 Année N - Première dotation (31/12/N)</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Complétez l'écriture de constitution de la provision :</p>
+                
+                <div class="exercise-entry" id="exerciseN">
+                    <div class="entry-header">
+                        <span>Écriture de constitution de la provision - Année N</span>
+                        <span class="journal-type">Journal OD</span>
+                    </div>
+                    <table class="entry-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">Compte</th>
+                                <th>Libellé</th>
+                                <th style="width: 160px;">Débit</th>
+                                <th style="width: 160px;">Crédit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exN_compte1" placeholder="____" data-answer="6360"></td>
+                                <td>Dotation aux provisions pour grosses réparations et gros entretien</td>
+                                <td><input type="text" class="exercise-input amount" id="exN_debit1" placeholder="________ €" data-answer="125000"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exN_compte2" placeholder="____" data-answer="1620"></td>
+                                <td class="indent">Provision pour grosses réparations et gros entretien</td>
+                                <td></td>
+                                <td><input type="text" class="exercise-input amount" id="exN_credit1" placeholder="________ €" data-answer="125000"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="exercise-feedback" id="feedbackN"></div>
+                    <div class="exercise-controls">
+                        <button class="btn-check" onclick="checkExercise('N')">✓ Vérifier mes réponses</button>
+                        <button class="btn-show" onclick="showAnswer('N')">👁 Afficher la réponse</button>
+                        <button class="btn-reset" onclick="resetExercise('N')">↺ Réinitialiser</button>
+                    </div>
+                    <div class="answer-display" id="answerN">
+                        <h4>✓ Réponse correcte :</h4>
+                        <table class="entry-table">
+                            <tbody>
+                                <tr>
+                                    <td class="account-code" style="width: 120px;">6360</td>
+                                    <td>Dotation aux provisions pour grosses réparations et gros entretien</td>
+                                    <td class="debit" style="width: 160px;">125 000,00 €</td>
+                                    <td style="width: 160px;"></td>
+                                </tr>
+                                <tr>
+                                    <td class="account-code">1620</td>
+                                    <td class="indent">Provision pour grosses réparations et gros entretien</td>
+                                    <td></td>
+                                    <td class="credit">125 000,00 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">📅 Année N+1 - Deuxième dotation (31/12/N+1)</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Complétez l'écriture de constitution de la provision :</p>
+                
+                <div class="exercise-entry" id="exerciseN1">
+                    <div class="entry-header">
+                        <span>Écriture de constitution de la provision - Année N+1</span>
+                        <span class="journal-type">Journal OD</span>
+                    </div>
+                    <table class="entry-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">Compte</th>
+                                <th>Libellé</th>
+                                <th style="width: 160px;">Débit</th>
+                                <th style="width: 160px;">Crédit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exN1_compte1" placeholder="____" data-answer="6360"></td>
+                                <td>Dotation aux provisions pour grosses réparations et gros entretien</td>
+                                <td><input type="text" class="exercise-input amount" id="exN1_debit1" placeholder="________ €" data-answer="125000"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exN1_compte2" placeholder="____" data-answer="1620"></td>
+                                <td class="indent">Provision pour grosses réparations et gros entretien</td>
+                                <td></td>
+                                <td><input type="text" class="exercise-input amount" id="exN1_credit1" placeholder="________ €" data-answer="125000"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="exercise-feedback" id="feedbackN1"></div>
+                    <div class="exercise-controls">
+                        <button class="btn-check" onclick="checkExercise('N1')">✓ Vérifier mes réponses</button>
+                        <button class="btn-show" onclick="showAnswer('N1')">👁 Afficher la réponse</button>
+                        <button class="btn-reset" onclick="resetExercise('N1')">↺ Réinitialiser</button>
+                    </div>
+                    <div class="answer-display" id="answerN1">
+                        <h4>✓ Réponse correcte :</h4>
+                        <table class="entry-table">
+                            <tbody>
+                                <tr>
+                                    <td class="account-code" style="width: 120px;">6360</td>
+                                    <td>Dotation aux provisions pour grosses réparations et gros entretien</td>
+                                    <td class="debit" style="width: 160px;">125 000,00 €</td>
+                                    <td style="width: 160px;"></td>
+                                </tr>
+                                <tr>
+                                    <td class="account-code">1620</td>
+                                    <td class="indent">Provision pour grosses réparations et gros entretien</td>
+                                    <td></td>
+                                    <td class="credit">125 000,00 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="explanation-box">
+                    <h4>📊 Comprendre les comptes utilisés</h4>
+                    <p><strong>Compte 6360</strong> (Débit) : C'est une <strong>charge</strong> qui diminue le résultat de l'exercice. Elle représente l'anticipation de la dépense future.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Compte 1620</strong> (Crédit) : C'est un compte de <strong>passif</strong> au bilan. La provision constitue une source de financement réservée pour les travaux futurs.</p>
+                </div>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">📈 Situation après 2 ans de constitution</h3>
+
+                <table class="impact-table">
+                    <thead>
+                        <tr>
+                            <th>Année</th>
+                            <th>Compte 1620 (Passif)</th>
+                            <th>Compte 6360 (Charge)</th>
+                            <th>Impact sur le résultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="year-col">Année N</td>
+                            <td>+ 125 000 €</td>
+                            <td class="negative">125 000 €</td>
+                            <td class="negative">- 125 000 €</td>
+                        </tr>
+                        <tr>
+                            <td class="year-col">Année N+1</td>
+                            <td>+ 125 000 €</td>
+                            <td class="negative">125 000 €</td>
+                            <td class="negative">- 125 000 €</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>TOTAL</td>
+                            <td><strong>250 000 €</strong></td>
+                            <td><strong>250 000 €</strong></td>
+                            <td class="negative"><strong>- 250 000 €</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">← Précédent</button>
+                <button class="btn btn-primary" onclick="nextStep()">Suivant : La facture →</button>
+            </div>
+        </div>
+
+        <!-- Section 4: Réception de la facture -->
+        <div class="section" id="section4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon invoice">📄</div>
+                    <h2 class="card-title">Étape 2 : Réception de la facture (Année N+2)</h2>
+                </div>
+
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    En année N+2, les travaux de réparation sont effectués. L'entreprise reçoit la facture de l'entrepreneur. <strong>Trois scénarios</strong> sont possibles selon le montant réel de la facture.
+                </p>
+
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">🎯 Choisissez l'hypothèse à explorer :</h3>
+
+                <div class="hypothesis-selector">
+                    <div class="hypothesis-btn equal active" onclick="selectHypothesis(1)">
+                        <div class="amount">250 000 €</div>
+                        <div class="description">Facture = Provision</div>
+                        <span class="badge">Hypothèse 1</span>
+                    </div>
+                    <div class="hypothesis-btn over" onclick="selectHypothesis(2)">
+                        <div class="amount">200 000 €</div>
+                        <div class="description">Facture &lt; Provision</div>
+                        <span class="badge">Hypothèse 2</span>
+                    </div>
+                    <div class="hypothesis-btn under" onclick="selectHypothesis(3)">
+                        <div class="amount">300 000 €</div>
+                        <div class="description">Facture &gt; Provision</div>
+                        <span class="badge">Hypothèse 3</span>
+                    </div>
+                </div>
+
+                <!-- Hypothèse 1: 250 000 € -->
+                <div id="hypothesis1" class="hypothesis-content">
+                    <div class="invoice">
+                        <div class="invoice-header">
+                            <div class="invoice-company">
+                                <h3>🏗️ TOITURES RENOV SPRL</h3>
+                                <p>Rue de l'Industrie 45<br>4000 LIÈGE<br>TVA: BE 0456.789.123<br>IBAN: BE68 5390 0754 7034</p>
+                            </div>
+                            <div class="invoice-meta">
+                                <div class="invoice-number">FACTURE N° 334</div>
+                                <div class="invoice-date">Date : 15/03/N+2</div>
+                            </div>
+                        </div>
+                        <div class="invoice-parties">
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Fournisseur</div>
+                                <h4>TOITURES RENOV SPRL</h4>
+                                <p>Entreprise générale de toiture<br>Agréé secteur construction</p>
+                            </div>
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Client</div>
+                                <h4>MEUBLEDISTRI SA</h4>
+                                <p>Avenue du Commerce 125<br>4020 LIÈGE<br>TVA: BE 0123.456.789</p>
+                            </div>
+                        </div>
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant HTVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Réparation complète de la toiture des entrepôts A, B et C<br>
+                                    <span style="color: var(--text-muted); font-size: 0.9rem;">- Démontage et évacuation des éléments défectueux<br>
+                                    - Fourniture et pose de nouvelles tuiles<br>
+                                    - Réfection de l'étanchéité<br>
+                                    - Main d'œuvre et équipements</span></td>
+                                    <td>250 000,00 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="invoice-totals">
+                            <table class="invoice-totals-table">
+                                <tr><td>Base imposable</td><td>250 000,00 €</td></tr>
+                                <tr><td>TVA 21%</td><td>52 500,00 €</td></tr>
+                                <tr class="total-row"><td>TOTAL À PAYER</td><td>250 000,00 €</td></tr>
+                            </table>
+                        </div>
+                        <div class="invoice-footer">
+                            <div class="autoliquidation">⚠️ AUTOLIQUIDATION - TVA à acquitter par le cocontractant (art. 20 AR n°1)</div>
+                            <p>Conditions de paiement : 30 jours date de facture</p>
+                        </div>
+                    </div>
+
+                    <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">✏️ Complétez l'écriture d'enregistrement de la facture :</h4>
+
+                    <div class="exercise-entry" id="exerciseH1">
+                        <div class="entry-header">
+                            <span>Enregistrement de la facture n° 334</span>
+                            <span class="journal-type">Journal Achats</span>
+                        </div>
+                        <table class="entry-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Compte</th>
+                                    <th>Libellé</th>
+                                    <th style="width: 160px;">Débit</th>
+                                    <th style="width: 160px;">Crédit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH1_compte1" placeholder="____" data-answer="6106"></td>
+                                    <td>Entretien et réparation</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH1_debit1" placeholder="________ €" data-answer="250000"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH1_compte2" placeholder="____" data-answer="4110"></td>
+                                    <td>TVA à récupérer</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH1_debit2" placeholder="________ €" data-answer="52500"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH1_compte3" placeholder="____" data-answer="4400"></td>
+                                    <td class="indent">Fournisseur</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH1_credit1" placeholder="________ €" data-answer="250000"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH1_compte4" placeholder="____" data-answer="4513"></td>
+                                    <td class="indent">TVA Cocontractant</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH1_credit2" placeholder="________ €" data-answer="52500"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="exercise-feedback" id="feedbackH1"></div>
+                        <div class="exercise-controls">
+                            <button class="btn-check" onclick="checkExercise('H1')">✓ Vérifier mes réponses</button>
+                            <button class="btn-show" onclick="showAnswer('H1')">👁 Afficher la réponse</button>
+                            <button class="btn-reset" onclick="resetExercise('H1')">↺ Réinitialiser</button>
+                        </div>
+                        <div class="answer-display" id="answerH1">
+                            <h4>✓ Réponse correcte :</h4>
+                            <table class="entry-table">
+                                <tbody>
+                                    <tr><td class="account-code" style="width: 120px;">6106</td><td>Entretien et réparation</td><td class="debit" style="width: 160px;">250 000,00 €</td><td style="width: 160px;"></td></tr>
+                                    <tr><td class="account-code">4110</td><td>TVA à récupérer</td><td class="debit">52 500,00 €</td><td></td></tr>
+                                    <tr><td class="account-code">4400</td><td class="indent">Fournisseur</td><td></td><td class="credit">250 000,00 €</td></tr>
+                                    <tr><td class="account-code">4513</td><td class="indent">TVA Cocontractant</td><td></td><td class="credit">52 500,00 €</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hypothèse 2: 200 000 € -->
+                <div id="hypothesis2" class="hypothesis-content" style="display: none;">
+                    <div class="invoice">
+                        <div class="invoice-header">
+                            <div class="invoice-company">
+                                <h3>🏗️ TOITURES RENOV SPRL</h3>
+                                <p>Rue de l'Industrie 45<br>4000 LIÈGE<br>TVA: BE 0456.789.123<br>IBAN: BE68 5390 0754 7034</p>
+                            </div>
+                            <div class="invoice-meta">
+                                <div class="invoice-number">FACTURE N° 4355</div>
+                                <div class="invoice-date">Date : 15/03/N+2</div>
+                            </div>
+                        </div>
+                        <div class="invoice-parties">
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Fournisseur</div>
+                                <h4>TOITURES RENOV SPRL</h4>
+                                <p>Entreprise générale de toiture<br>Agréé secteur construction</p>
+                            </div>
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Client</div>
+                                <h4>MEUBLEDISTRI SA</h4>
+                                <p>Avenue du Commerce 125<br>4020 LIÈGE<br>TVA: BE 0123.456.789</p>
+                            </div>
+                        </div>
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant HTVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Réparation de la toiture des entrepôts A et B<br>
+                                    <span style="color: var(--text-muted); font-size: 0.9rem;">- Démontage et évacuation des éléments défectueux<br>
+                                    - Fourniture et pose de nouvelles tuiles<br>
+                                    - Réfection partielle de l'étanchéité<br>
+                                    <em style="color: var(--success);">Note : Dégâts moins importants que prévu sur entrepôt C</em></span></td>
+                                    <td>200 000,00 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="invoice-totals">
+                            <table class="invoice-totals-table">
+                                <tr><td>Base imposable</td><td>200 000,00 €</td></tr>
+                                <tr><td>TVA 21%</td><td>42 000,00 €</td></tr>
+                                <tr class="total-row"><td>TOTAL À PAYER</td><td>200 000,00 €</td></tr>
+                            </table>
+                        </div>
+                        <div class="invoice-footer">
+                            <div class="autoliquidation">⚠️ AUTOLIQUIDATION - TVA à acquitter par le cocontractant (art. 20 AR n°1)</div>
+                            <p>Conditions de paiement : 30 jours date de facture</p>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box success">
+                        <h4>📉 Coût inférieur à la provision</h4>
+                        <p>La facture (200 000 €) est <strong>inférieure</strong> de 50 000 € à la provision constituée (250 000 €). L'entreprise avait <strong>surestimé</strong> le coût des travaux.</p>
+                    </div>
+
+                    <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">✏️ Complétez l'écriture d'enregistrement de la facture :</h4>
+
+                    <div class="exercise-entry" id="exerciseH2">
+                        <div class="entry-header">
+                            <span>Enregistrement de la facture n° 4355</span>
+                            <span class="journal-type">Journal Achats</span>
+                        </div>
+                        <table class="entry-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Compte</th>
+                                    <th>Libellé</th>
+                                    <th style="width: 160px;">Débit</th>
+                                    <th style="width: 160px;">Crédit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH2_compte1" placeholder="____" data-answer="6106"></td>
+                                    <td>Entretien et réparation</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH2_debit1" placeholder="________ €" data-answer="200000"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH2_compte2" placeholder="____" data-answer="4110"></td>
+                                    <td>TVA à récupérer</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH2_debit2" placeholder="________ €" data-answer="42000"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH2_compte3" placeholder="____" data-answer="4400"></td>
+                                    <td class="indent">Fournisseur</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH2_credit1" placeholder="________ €" data-answer="200000"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH2_compte4" placeholder="____" data-answer="4513"></td>
+                                    <td class="indent">TVA Cocontractant</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH2_credit2" placeholder="________ €" data-answer="42000"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="exercise-feedback" id="feedbackH2"></div>
+                        <div class="exercise-controls">
+                            <button class="btn-check" onclick="checkExercise('H2')">✓ Vérifier mes réponses</button>
+                            <button class="btn-show" onclick="showAnswer('H2')">👁 Afficher la réponse</button>
+                            <button class="btn-reset" onclick="resetExercise('H2')">↺ Réinitialiser</button>
+                        </div>
+                        <div class="answer-display" id="answerH2">
+                            <h4>✓ Réponse correcte :</h4>
+                            <table class="entry-table">
+                                <tbody>
+                                    <tr><td class="account-code" style="width: 120px;">6106</td><td>Entretien et réparation</td><td class="debit" style="width: 160px;">200 000,00 €</td><td style="width: 160px;"></td></tr>
+                                    <tr><td class="account-code">4110</td><td>TVA à récupérer</td><td class="debit">42 000,00 €</td><td></td></tr>
+                                    <tr><td class="account-code">4400</td><td class="indent">Fournisseur</td><td></td><td class="credit">200 000,00 €</td></tr>
+                                    <tr><td class="account-code">4513</td><td class="indent">TVA Cocontractant</td><td></td><td class="credit">42 000,00 €</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hypothèse 3: 300 000 € -->
+                <div id="hypothesis3" class="hypothesis-content" style="display: none;">
+                    <div class="invoice">
+                        <div class="invoice-header">
+                            <div class="invoice-company">
+                                <h3>🏗️ TOITURES RENOV SPRL</h3>
+                                <p>Rue de l'Industrie 45<br>4000 LIÈGE<br>TVA: BE 0456.789.123<br>IBAN: BE68 5390 0754 7034</p>
+                            </div>
+                            <div class="invoice-meta">
+                                <div class="invoice-number">FACTURE N° 2534</div>
+                                <div class="invoice-date">Date : 15/03/N+2</div>
+                            </div>
+                        </div>
+                        <div class="invoice-parties">
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Fournisseur</div>
+                                <h4>TOITURES RENOV SPRL</h4>
+                                <p>Entreprise générale de toiture<br>Agréé secteur construction</p>
+                            </div>
+                            <div class="invoice-party">
+                                <div class="invoice-party-label">Client</div>
+                                <h4>MEUBLEDISTRI SA</h4>
+                                <p>Avenue du Commerce 125<br>4020 LIÈGE<br>TVA: BE 0123.456.789</p>
+                            </div>
+                        </div>
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant HTVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Réparation complète de la toiture des entrepôts A, B et C<br>
+                                    <span style="color: var(--text-muted); font-size: 0.9rem;">- Démontage et évacuation des éléments défectueux<br>
+                                    - Fourniture et pose de nouvelles tuiles premium<br>
+                                    - Réfection complète de l'étanchéité et isolation<br>
+                                    - Remplacement imprévu de la charpente (entrepôt B)<br>
+                                    <em style="color: var(--danger);">Note : Travaux supplémentaires suite à découverte de dégâts cachés</em></span></td>
+                                    <td>300 000,00 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="invoice-totals">
+                            <table class="invoice-totals-table">
+                                <tr><td>Base imposable</td><td>300 000,00 €</td></tr>
+                                <tr><td>TVA 21%</td><td>63 000,00 €</td></tr>
+                                <tr class="total-row"><td>TOTAL À PAYER</td><td>300 000,00 €</td></tr>
+                            </table>
+                        </div>
+                        <div class="invoice-footer">
+                            <div class="autoliquidation">⚠️ AUTOLIQUIDATION - TVA à acquitter par le cocontractant (art. 20 AR n°1)</div>
+                            <p>Conditions de paiement : 30 jours date de facture</p>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box danger">
+                        <h4>📈 Coût supérieur à la provision</h4>
+                        <p>La facture (300 000 €) est <strong>supérieure</strong> de 50 000 € à la provision constituée (250 000 €). L'entreprise avait <strong>sous-estimé</strong> le coût des travaux.</p>
+                    </div>
+
+                    <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">✏️ Complétez l'écriture d'enregistrement de la facture :</h4>
+
+                    <div class="exercise-entry" id="exerciseH3">
+                        <div class="entry-header">
+                            <span>Enregistrement de la facture n° 2534</span>
+                            <span class="journal-type">Journal Achats</span>
+                        </div>
+                        <table class="entry-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Compte</th>
+                                    <th>Libellé</th>
+                                    <th style="width: 160px;">Débit</th>
+                                    <th style="width: 160px;">Crédit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH3_compte1" placeholder="____" data-answer="6106"></td>
+                                    <td>Entretien et réparation</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH3_debit1" placeholder="________ €" data-answer="300000"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH3_compte2" placeholder="____" data-answer="4110"></td>
+                                    <td>TVA à récupérer</td>
+                                    <td><input type="text" class="exercise-input amount" id="exH3_debit2" placeholder="________ €" data-answer="63000"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH3_compte3" placeholder="____" data-answer="4400"></td>
+                                    <td class="indent">Fournisseur</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH3_credit1" placeholder="________ €" data-answer="300000"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="exercise-input" id="exH3_compte4" placeholder="____" data-answer="4513"></td>
+                                    <td class="indent">TVA Cocontractant</td>
+                                    <td></td>
+                                    <td><input type="text" class="exercise-input amount" id="exH3_credit2" placeholder="________ €" data-answer="63000"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="exercise-feedback" id="feedbackH3"></div>
+                        <div class="exercise-controls">
+                            <button class="btn-check" onclick="checkExercise('H3')">✓ Vérifier mes réponses</button>
+                            <button class="btn-show" onclick="showAnswer('H3')">👁 Afficher la réponse</button>
+                            <button class="btn-reset" onclick="resetExercise('H3')">↺ Réinitialiser</button>
+                        </div>
+                        <div class="answer-display" id="answerH3">
+                            <h4>✓ Réponse correcte :</h4>
+                            <table class="entry-table">
+                                <tbody>
+                                    <tr><td class="account-code" style="width: 120px;">6106</td><td>Entretien et réparation</td><td class="debit" style="width: 160px;">300 000,00 €</td><td style="width: 160px;"></td></tr>
+                                    <tr><td class="account-code">4110</td><td>TVA à récupérer</td><td class="debit">63 000,00 €</td><td></td></tr>
+                                    <tr><td class="account-code">4400</td><td class="indent">Fournisseur</td><td></td><td class="credit">300 000,00 €</td></tr>
+                                    <tr><td class="account-code">4513</td><td class="indent">TVA Cocontractant</td><td></td><td class="credit">63 000,00 €</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation-box">
+                    <h4>📝 Note sur l'autoliquidation TVA</h4>
+                    <p>Dans le secteur de la construction en Belgique, le mécanisme de <strong>cocontractant (autoliquidation)</strong> s'applique. L'entreprise cliente déclare elle-même la TVA : elle débite et crédite la TVA simultanément (comptes 4110 et 4513).</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">← Précédent</button>
+                <button class="btn btn-primary" onclick="nextStep()">Suivant : Utilisation →</button>
+            </div>
+        </div>
+
+        <!-- Section 5: Utilisation de la provision -->
+        <div class="section" id="section5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon result">🔄</div>
+                    <h2 class="card-title">Étape 3 : Utilisation (extourne) de la provision</h2>
+                </div>
+
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Une fois la facture enregistrée, il faut <strong>utiliser la provision</strong> pour montrer le lien comptable entre la charge anticipée et la charge réelle. On <strong>extourne</strong> (annule) la provision constituée au passif.
+                </p>
+
+                <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">✏️ Complétez l'écriture d'utilisation de la provision :</h4>
+
+                <div class="exercise-entry" id="exerciseUtil">
+                    <div class="entry-header">
+                        <span>Utilisation de la provision</span>
+                        <span class="journal-type">Journal OD</span>
+                    </div>
+                    <table class="entry-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">Compte</th>
+                                <th>Libellé</th>
+                                <th style="width: 160px;">Débit</th>
+                                <th style="width: 160px;">Crédit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exUtil_compte1" placeholder="____" data-answer="1620"></td>
+                                <td>Provision pour grosses réparations et gros entretien</td>
+                                <td><input type="text" class="exercise-input amount" id="exUtil_debit1" placeholder="________ €" data-answer="250000"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="exercise-input" id="exUtil_compte2" placeholder="____" data-answer="6361"></td>
+                                <td class="indent">Utilisation et reprises de provisions</td>
+                                <td></td>
+                                <td><input type="text" class="exercise-input amount" id="exUtil_credit1" placeholder="________ €" data-answer="250000"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="exercise-feedback" id="feedbackUtil"></div>
+                    <div class="exercise-controls">
+                        <button class="btn-check" onclick="checkExercise('Util')">✓ Vérifier mes réponses</button>
+                        <button class="btn-show" onclick="showAnswer('Util')">👁 Afficher la réponse</button>
+                        <button class="btn-reset" onclick="resetExercise('Util')">↺ Réinitialiser</button>
+                    </div>
+                    <div class="answer-display" id="answerUtil">
+                        <h4>✓ Réponse correcte :</h4>
+                        <table class="entry-table">
+                            <tbody>
+                                <tr><td class="account-code" style="width: 120px;">1620</td><td>Provision pour grosses réparations et gros entretien</td><td class="debit" style="width: 160px;">250 000,00 €</td><td style="width: 160px;"></td></tr>
+                                <tr><td class="account-code">6361</td><td class="indent">Utilisation et reprises de provisions</td><td></td><td class="credit">250 000,00 €</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="explanation-box success">
+                    <h4>🎯 Que se passe-t-il lors de l'utilisation ?</h4>
+                    <p><strong>Compte 1620</strong> (Débit) : On <strong>vide</strong> le compte de provision au passif. Le solde devient nul.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Compte 6361</strong> (Crédit) : C'est un <strong>produit</strong> qui vient compenser partiellement ou totalement la charge enregistrée en 6106.</p>
+                </div>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">🧮 Calcul de l'impact en N+2</h3>
+
+                <div id="impactCalc1" class="impact-calc">
+                    <table class="impact-table">
+                        <thead><tr><th>Opération</th><th>Compte</th><th>Nature</th><th>Montant</th></tr></thead>
+                        <tbody>
+                            <tr><td>Facture</td><td class="account-code">6106</td><td>Charge</td><td class="negative">- 250 000 €</td></tr>
+                            <tr><td>Utilisation provision</td><td class="account-code">6361</td><td>Produit</td><td class="positive">+ 250 000 €</td></tr>
+                            <tr class="total-row"><td colspan="3"><strong>Impact net sur le résultat N+2</strong></td><td class="neutral"><strong>0 €</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="impactCalc2" class="impact-calc" style="display: none;">
+                    <table class="impact-table">
+                        <thead><tr><th>Opération</th><th>Compte</th><th>Nature</th><th>Montant</th></tr></thead>
+                        <tbody>
+                            <tr><td>Facture</td><td class="account-code">6106</td><td>Charge</td><td class="negative">- 200 000 €</td></tr>
+                            <tr><td>Utilisation provision</td><td class="account-code">6361</td><td>Produit</td><td class="positive">+ 250 000 €</td></tr>
+                            <tr class="total-row"><td colspan="3"><strong>Impact net sur le résultat N+2</strong></td><td class="positive"><strong>+ 50 000 €</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="impactCalc3" class="impact-calc" style="display: none;">
+                    <table class="impact-table">
+                        <thead><tr><th>Opération</th><th>Compte</th><th>Nature</th><th>Montant</th></tr></thead>
+                        <tbody>
+                            <tr><td>Facture</td><td class="account-code">6106</td><td>Charge</td><td class="negative">- 300 000 €</td></tr>
+                            <tr><td>Utilisation provision</td><td class="account-code">6361</td><td>Produit</td><td class="positive">+ 250 000 €</td></tr>
+                            <tr class="total-row"><td colspan="3"><strong>Impact net sur le résultat N+2</strong></td><td class="negative"><strong>- 50 000 €</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">← Précédent</button>
+                <button class="btn btn-primary" onclick="nextStep()">Suivant : Impact global →</button>
+            </div>
+        </div>
+
+        <!-- Section 6: Impact sur le résultat -->
+        <div class="section" id="section6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon result">📊</div>
+                    <h2 class="card-title">Impact global sur le résultat de l'entreprise</h2>
+                </div>
+
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Voyons maintenant l'impact <strong>cumulé sur toutes les années</strong> et comprenons comment la provision influence le résultat comptable de l'entreprise.
+                </p>
+
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">📅 Vision année par année</h3>
+
+                <div class="visual-impact" id="visualImpact">
+                    <div class="year-box provision">
+                        <div class="year-label">Année N</div>
+                        <div class="impact-value">- 125 000 €</div>
+                        <span class="impact-label">Dotation provision</span>
+                    </div>
+                    <div class="year-box provision">
+                        <div class="year-label">Année N+1</div>
+                        <div class="impact-value">- 125 000 €</div>
+                        <span class="impact-label">Dotation provision</span>
+                    </div>
+                    <div class="year-box neutral" id="yearN2Box">
+                        <div class="year-label">Année N+2</div>
+                        <div class="impact-value" id="yearN2Value">0 €</div>
+                        <span class="impact-label" id="yearN2Label">Équilibré</span>
+                    </div>
+                    <div class="year-box" id="totalBox" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white;">
+                        <div class="year-label" style="color: rgba(255,255,255,0.8);">TOTAL</div>
+                        <div class="impact-value" id="totalValue" style="color: white;">- 250 000 €</div>
+                        <span class="impact-label" id="totalLabel" style="background: rgba(255,255,255,0.2); color: white;">Charge totale</span>
+                    </div>
+                </div>
+
+                <div class="total-summary" id="totalSummary">
+                    <div>
+                        <div class="summary-label">💰 Charge réelle totale supportée par l'entreprise</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">Répartie sur 3 exercices comptables</div>
+                    </div>
+                    <div class="summary-value" id="summaryValue">250 000 €</div>
+                </div>
+
+                <div id="explanation1" class="hypothesis-explanation">
+                    <div class="explanation-box success">
+                        <h4>✅ Hypothèse 1 : Estimation parfaite</h4>
+                        <p>L'impact sur l'année N+2 est <strong>neutre (0 €)</strong> car la provision correspond exactement au coût réel. La charge de 250 000 € a été parfaitement répartie sur les années N et N+1.</p>
+                        <p style="margin-top: 0.75rem;">C'est le scénario idéal : pas de correction à effectuer sur la dernière année.</p>
+                    </div>
+                </div>
+
+                <div id="explanation2" class="hypothesis-explanation" style="display: none;">
+                    <div class="explanation-box success">
+                        <h4>📈 Hypothèse 2 : Surestimation du coût</h4>
+                        <p>L'impact sur l'année N+2 est <strong>positif (+50 000 €)</strong> car nous avions provisionné plus que nécessaire.</p>
+                        <p style="margin-top: 0.75rem;"><strong>Attention :</strong> Cette amélioration apparente du résultat en N+2 ne reflète pas une meilleure performance réelle. Elle représente simplement la <strong>correction</strong> des années N et N+1 où nous avions pénalisé le résultat de 25 000 € de trop chaque année.</p>
+                        <p style="margin-top: 0.75rem; font-style: italic;">En réalité, les années N et N+1 étaient meilleures que ce qui a été présenté dans les comptes !</p>
+                    </div>
+                </div>
+
+                <div id="explanation3" class="hypothesis-explanation" style="display: none;">
+                    <div class="explanation-box danger">
+                        <h4>📉 Hypothèse 3 : Sous-estimation du coût</h4>
+                        <p>L'impact sur l'année N+2 est <strong>négatif (-50 000 €)</strong> car nous n'avions pas provisionné assez.</p>
+                        <p style="margin-top: 0.75rem;"><strong>Attention :</strong> Cette dégradation apparente du résultat en N+2 ne reflète pas une moins bonne performance réelle. Elle représente simplement la <strong>correction</strong> des années N et N+1 où nous n'avions pas pris en charge assez de provisions.</p>
+                        <p style="margin-top: 0.75rem; font-style: italic;">En réalité, les années N et N+1 étaient peut-être moins bonnes que ce qui a été présenté dans les comptes !</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">📋 Tableau récapitulatif complet</h3>
+
+                <table class="impact-table" id="fullRecapTable">
+                    <thead>
+                        <tr>
+                            <th>Année</th>
+                            <th>Charges (6360/6106)</th>
+                            <th>Produits (6361)</th>
+                            <th>Impact net</th>
+                            <th>Provision cumulée (1620)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="year-col">N</td><td class="negative">125 000 €</td><td>-</td><td class="negative">- 125 000 €</td><td>125 000 €</td></tr>
+                        <tr><td class="year-col">N+1</td><td class="negative">125 000 €</td><td>-</td><td class="negative">- 125 000 €</td><td>250 000 €</td></tr>
+                        <tr id="recapRowN2"><td class="year-col">N+2</td><td class="negative">250 000 €</td><td class="positive">250 000 €</td><td class="neutral">0 €</td><td>0 €</td></tr>
+                        <tr class="total-row" id="recapRowTotal"><td><strong>TOTAL</strong></td><td class="negative"><strong>500 000 €</strong></td><td class="positive"><strong>250 000 €</strong></td><td class="negative"><strong>- 250 000 €</strong></td><td><strong>0 €</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="quiz-container" style="margin-top: 2rem;">
+                    <div class="quiz-question">🧠 Quiz final : Quel est le principal avantage des provisions ?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz2(this, false)">Augmenter artificiellement le bénéfice</div>
+                        <div class="quiz-option" onclick="checkQuiz2(this, true)">Lisser l'impact d'une charge importante sur plusieurs exercices</div>
+                        <div class="quiz-option" onclick="checkQuiz2(this, false)">Éviter de payer la TVA</div>
+                    </div>
+                    <div class="quiz-feedback" id="quizFeedback2">
+                        <strong>✓ Excellent !</strong> Les provisions permettent d'éviter des variations trop importantes du résultat d'une année à l'autre et facilitent la comparaison entre exercices.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                <h2 style="margin-bottom: 1rem;">🎓 Points clés à retenir</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                        <span style="font-size: 1.5rem;">1️⃣</span>
+                        <p>La provision anticipe une charge future : on prend en charge <strong>avant</strong> de recevoir la facture.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                        <span style="font-size: 1.5rem;">2️⃣</span>
+                        <p>La constitution (6360 → 1620) <strong>diminue</strong> le résultat et crée une ressource au passif.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                        <span style="font-size: 1.5rem;">3️⃣</span>
+                        <p>L'utilisation (1620 → 6361) <strong>compense</strong> la charge réelle enregistrée.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                        <span style="font-size: 1.5rem;">4️⃣</span>
+                        <p>La différence entre provision et charge réelle impacte l'année finale, pas la charge totale.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">← Précédent</button>
+                <button class="btn btn-primary" onclick="resetApp()">🔄 Recommencer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let currentHypothesis = 1;
+        const totalSteps = 6;
+
+        function updateProgress() {
+            const steps = document.querySelectorAll('.step');
+            const progressLine = document.getElementById('progressLine');
+            steps.forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum < currentStep) step.classList.add('completed');
+                else if (stepNum === currentStep) step.classList.add('active');
+            });
+            const percentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            const maxWidth = document.querySelector('.progress-steps').offsetWidth - 80;
+            progressLine.style.width = `${(percentage / 100) * maxWidth}px`;
+        }
+
+        function showSection(stepNum) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`section${stepNum}`).classList.add('active');
+        }
+
+        function nextStep() { if (currentStep < totalSteps) { currentStep++; updateProgress(); showSection(currentStep); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+        function prevStep() { if (currentStep > 1) { currentStep--; updateProgress(); showSection(currentStep); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+        function goToStep(stepNum) { if (stepNum <= currentStep || stepNum === currentStep + 1) { currentStep = stepNum; updateProgress(); showSection(currentStep); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+
+        function selectHypothesis(num) {
+            currentHypothesis = num;
+            document.querySelectorAll('.hypothesis-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.hypothesis-content').forEach(c => c.style.display = 'none');
+            document.getElementById(`hypothesis${num}`).style.display = 'block';
+            document.querySelectorAll('.impact-calc').forEach(c => c.style.display = 'none');
+            document.getElementById(`impactCalc${num}`).style.display = 'block';
+            document.querySelectorAll('.hypothesis-explanation').forEach(e => e.style.display = 'none');
+            document.getElementById(`explanation${num}`).style.display = 'block';
+            updateVisualImpact(num);
+        }
+
+        function updateVisualImpact(num) {
+            const yearN2Box = document.getElementById('yearN2Box');
+            const yearN2Value = document.getElementById('yearN2Value');
+            const yearN2Label = document.getElementById('yearN2Label');
+            const totalValue = document.getElementById('totalValue');
+            const summaryValue = document.getElementById('summaryValue');
+            const recapRowN2 = document.getElementById('recapRowN2');
+            const recapRowTotal = document.getElementById('recapRowTotal');
+            yearN2Box.classList.remove('neutral', 'positive', 'negative');
+            if (num === 1) {
+                yearN2Box.classList.add('neutral'); yearN2Value.textContent = '0 €'; yearN2Label.textContent = 'Équilibré';
+                totalValue.textContent = '- 250 000 €'; summaryValue.textContent = '250 000 €';
+                recapRowN2.innerHTML = '<td class="year-col">N+2</td><td class="negative">250 000 €</td><td class="positive">250 000 €</td><td class="neutral">0 €</td><td>0 €</td>';
+                recapRowTotal.innerHTML = '<td><strong>TOTAL</strong></td><td class="negative"><strong>500 000 €</strong></td><td class="positive"><strong>250 000 €</strong></td><td class="negative"><strong>- 250 000 €</strong></td><td><strong>0 €</strong></td>';
+            } else if (num === 2) {
+                yearN2Box.classList.add('positive'); yearN2Value.textContent = '+ 50 000 €'; yearN2Label.textContent = 'Excédent provision';
+                totalValue.textContent = '- 200 000 €'; summaryValue.textContent = '200 000 €';
+                recapRowN2.innerHTML = '<td class="year-col">N+2</td><td class="negative">200 000 €</td><td class="positive">250 000 €</td><td class="positive">+ 50 000 €</td><td>0 €</td>';
+                recapRowTotal.innerHTML = '<td><strong>TOTAL</strong></td><td class="negative"><strong>450 000 €</strong></td><td class="positive"><strong>250 000 €</strong></td><td class="negative"><strong>- 200 000 €</strong></td><td><strong>0 €</strong></td>';
+            } else if (num === 3) {
+                yearN2Box.classList.add('negative'); yearN2Value.textContent = '- 50 000 €'; yearN2Label.textContent = 'Insuffisance provision';
+                totalValue.textContent = '- 300 000 €'; summaryValue.textContent = '300 000 €';
+                recapRowN2.innerHTML = '<td class="year-col">N+2</td><td class="negative">300 000 €</td><td class="positive">250 000 €</td><td class="negative">- 50 000 €</td><td>0 €</td>';
+                recapRowTotal.innerHTML = '<td><strong>TOTAL</strong></td><td class="negative"><strong>550 000 €</strong></td><td class="positive"><strong>250 000 €</strong></td><td class="negative"><strong>- 300 000 €</strong></td><td><strong>0 €</strong></td>';
+            }
+        }
+
+        function normalizeValue(value) { return value.replace(/[\s€,.]/g, '').toLowerCase(); }
+
+        function checkExercise(exerciseId) {
+            const prefix = `ex${exerciseId}_`;
+            const inputs = document.querySelectorAll(`[id^="${prefix}"]`);
+            let allCorrect = true, errors = [];
+            inputs.forEach(input => {
+                const answer = input.dataset.answer;
+                const userValue = normalizeValue(input.value);
+                const correctValue = normalizeValue(answer);
+                input.classList.remove('correct', 'incorrect');
+                if (userValue === correctValue) input.classList.add('correct');
+                else { input.classList.add('incorrect'); allCorrect = false; errors.push(input.id); }
+            });
+            const feedback = document.getElementById(`feedback${exerciseId}`);
+            feedback.classList.remove('success', 'error');
+            if (allCorrect) { feedback.innerHTML = '✅ <strong>Excellent !</strong> Toutes vos réponses sont correctes !'; feedback.classList.add('show', 'success'); }
+            else { feedback.innerHTML = `❌ <strong>Attention !</strong> ${errors.length} réponse(s) incorrecte(s). Vérifiez les champs en rouge.`; feedback.classList.add('show', 'error'); }
+        }
+
+        function showAnswer(exerciseId) {
+            document.getElementById(`answer${exerciseId}`).classList.add('show');
+            const prefix = `ex${exerciseId}_`;
+            document.querySelectorAll(`[id^="${prefix}"]`).forEach(input => {
+                const answer = input.dataset.answer;
+                input.value = answer.length === 4 && !isNaN(answer) ? answer : parseInt(answer).toLocaleString('fr-BE') + ' €';
+                input.classList.remove('incorrect'); input.classList.add('correct');
+            });
+            document.getElementById(`feedback${exerciseId}`).classList.remove('show');
+        }
+
+        function resetExercise(exerciseId) {
+            const prefix = `ex${exerciseId}_`;
+            document.querySelectorAll(`[id^="${prefix}"]`).forEach(input => { input.value = ''; input.classList.remove('correct', 'incorrect'); });
+            document.getElementById(`feedback${exerciseId}`).classList.remove('show', 'success', 'error');
+            document.getElementById(`answer${exerciseId}`).classList.remove('show');
+        }
+
+        function checkQuiz(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+            if (isCorrect) { element.classList.add('correct'); document.getElementById('quizFeedback1').classList.add('show', 'correct'); }
+            else { element.classList.add('incorrect'); options.forEach(opt => { if (opt.onclick.toString().includes('true')) opt.classList.add('correct'); }); }
+        }
+
+        function checkQuiz2(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+            if (isCorrect) { element.classList.add('correct'); document.getElementById('quizFeedback2').classList.add('show', 'correct'); }
+            else { element.classList.add('incorrect'); options.forEach(opt => { if (opt.onclick.toString().includes('true')) opt.classList.add('correct'); }); }
+        }
+
+        function resetApp() {
+            currentStep = 1; currentHypothesis = 1; updateProgress(); showSection(1);
+            document.querySelectorAll('.hypothesis-btn').forEach((btn, i) => { btn.classList.remove('active'); if (i === 0) btn.classList.add('active'); });
+            document.querySelectorAll('.hypothesis-content').forEach((c, i) => c.style.display = i === 0 ? 'block' : 'none');
+            document.querySelectorAll('.impact-calc').forEach((c, i) => c.style.display = i === 0 ? 'block' : 'none');
+            document.querySelectorAll('.hypothesis-explanation').forEach((e, i) => e.style.display = i === 0 ? 'block' : 'none');
+            updateVisualImpact(1);
+            ['N', 'N1', 'H1', 'H2', 'H3', 'Util'].forEach(id => resetExercise(id));
+            document.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'auto'; });
+            document.querySelectorAll('.quiz-feedback').forEach(fb => fb.classList.remove('show', 'correct'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        updateProgress();
+    </script>
 </body>
 </html>
